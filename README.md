@@ -1,6 +1,6 @@
 # Como executar a API
 
-Clonar o repositório e acessar o diretório raiz (backend) pelo terminal para executar os comandos abaixo.
+Clonar o repositório e acessar o diretório raiz (mvp1-backend) pelo terminal para executar os comandos abaixo.
 
 Criar um ambiente virtual. No windows, usar:
 ```
@@ -24,6 +24,5 @@ Para ativar a API, executar o comando abaixo:
 Abra [http://localhost:5000/][def] no navegador para verificar o status da API em execução. 
 
 Deverá ser exibida a página inicial com a documentação em formato swagger da API com as rotas implementadas.
-
 
 [def]: http://localhost:5000/
