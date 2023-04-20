@@ -2,8 +2,6 @@ from pydantic import BaseModel
 from typing import Optional, List
 from model.planta import Planta
 
-
-
 class PlantaSchema(BaseModel):
     """ Define como uma nova planta a ser inserida na base deve ser representada.
     """

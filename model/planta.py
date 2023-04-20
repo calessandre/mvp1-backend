@@ -10,12 +10,12 @@ class Planta(Base):
     __tablename__ = 'planta'
 
     id = Column("pk_planta", Integer, primary_key=True)
-    nome = Column(String(140), unique=True)
-    nome_cientifico = Column(String(140))
+    nome = Column(String(60), unique=True)
+    nome_cientifico = Column(String(100))
     quantidade = Column(Integer)
-    forma_aquisicao = Column(String(140))
-    porte = Column(String(140))
-    luminosidade = Column(String(140))
+    forma_aquisicao = Column(String(40))
+    porte = Column(String(40))
+    luminosidade = Column(String(40))
     data_insercao = Column(DateTime, default=datetime.now())
 
     def __init__(self, nome:str, nome_cientifico: str, quantidade:int, forma_aquisicao: str, porte: str, 
