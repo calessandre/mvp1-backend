@@ -11,18 +11,17 @@ class PlantaSchema(BaseModel):
     forma_aquisicao: str = "compra"
     porte: str = "grande"
     luminosidade: str = "meia sombra"
+    observacao: str = "Exemplo de observacoes sobre a planta"
 
 
 class PlantaBuscaSchema(BaseModel):
-    """ Define como deve ser a estrutura que representa a busca. Que será
-        feita apenas com base no nome ??? da planta.
+    """ Define como será a estrutura que representa a busca de uma planta pelo seu id.
     """
     planta_id: int = 1
 
 
 def apresenta_plantas(plantas: List[Planta]):
-    """ Retorna uma representação da planta seguindo o schema definido em
-        PlantaViewSchema.
+    """ Retorna uma representação de plantas seguindo o schema definido em PlantaViewSchema.
     """
     result = []
     for planta in plantas:
@@ -32,8 +31,9 @@ def apresenta_plantas(plantas: List[Planta]):
             "nome_cientifico": planta.nome_cientifico,
             "quantidade": planta.quantidade,
             "forma_aquisicao": planta.forma_aquisicao,
+            "porte": planta.porte,
             "luminosidade": planta.luminosidade,
-            "porte": planta.porte
+            "observacao": planta.observacao
         })
 
     return {"plantas": result}
@@ -49,18 +49,17 @@ class PlantaViewSchema(BaseModel):
     forma_aquisicao: str = "compra"
     porte: str = "grande"
     luminosidade: str = "meia sombra"
+    observacao: str = "Exemplo de observacoes sobre a planta"
     
 
 class PlantaDelSchema(BaseModel):
-    """ Define como deve ser a estrutura do dado retornado após uma requisição
-        de remoção de uma planta.
+    """ Define como deve ser a estrutura do dado retornado após uma requisição de remoção de uma planta.
     """
     message: str
-    nome: str
+    id: int
 
 def apresenta_planta(planta: Planta):
-    """ Retorna uma representação da planta seguindo o schema definido em
-        PlantaViewSchema.
+    """ Retorna uma representação da planta seguindo o schema definido em PlantaViewSchema.
     """
     return {
         "id": planta.id,
@@ -69,10 +68,12 @@ def apresenta_planta(planta: Planta):
         "quantidade": planta.quantidade,
         "forma_aquisicao": planta.forma_aquisicao,
         "luminosidade": planta.luminosidade,
-        "porte": planta.porte
+        "porte": planta.porte,
+        "observacao": planta.observacao
     }
 
 class ListagemPlantasSchema(BaseModel):
     """ Define como uma listagem de plantas será retornada.
     """
     plantas:List[PlantaViewSchema]
+    

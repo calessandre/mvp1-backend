@@ -36,25 +36,26 @@ def add_planta(form: PlantaSchema):
         quantidade=form.quantidade,
         forma_aquisicao=form.forma_aquisicao,
         porte=form.porte,
-        luminosidade=form.luminosidade
+        luminosidade=form.luminosidade,
+        observacao=form.observacao
         )
 
     try:
-        # criando conexão com a base
+        # criando conexão com a base de dados
         session = Session()
         # adicionando planta
         session.add(planta)
-        # efetivando o comando de adição de novo item na tabela
+        # efetivando o comando de inclusão de nova planta na tabela
         session.commit()
         return apresenta_planta(planta), 200
 
     except IntegrityError as e:
-        # como a duplicidade do nome é a provável razão do IntegrityError
+        # retorna erro caso já haja planta com mesmo nome cadastrada na tabela ou outro erro de integridade
         error_msg = "Planta de mesmo nome já salva na base."
         return {"message": error_msg}, 409
 
     except Exception as e:
-        # caso ocorra um erro fora dos previstos
+        # caso ocorra um erro diferente dos anteriores
         error_msg = "Não foi possível salvar novo item."
         return {"message": error_msg}, 400
 
@@ -117,9 +118,9 @@ def del_planta(query: PlantaBuscaSchema):
     session.commit()
 
     if count:
-        # retorna a representação da mensagem de confirmação
+        # retorna a mensagem de confirmação e o id da planta removida
         return {"message": "Planta removida.", "id": planta_id}
     else:
-        # se o planta não foi encontrado
+        # se a planta não foi encontrada, retorna mensagem de erro
         error_msg = "Planta não encontrada na base."
         return {"message": error_msg}, 404
