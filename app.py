@@ -17,14 +17,15 @@ home_tag = Tag(name="Documentação", description="Documentação da API.")
 planta_tag = Tag(name="API", description="Adição, visualização, remoção e listagem de plantas.")
 
 # Implementando as rotas
+
+# Rota para documentação swagger
 @app.get('/', tags=[home_tag])
 def home():
     """Redireciona para /openapi/swagger - abre a documentação swagger da API proposta.
     """
     return redirect('/openapi/swagger')
 
-# Adicionar planta
-
+# Rota para adicionar planta (POST)
 @app.post('/planta', tags=[planta_tag],
           responses={"200": PlantaViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def add_planta(form: PlantaSchema):
@@ -60,8 +61,7 @@ def add_planta(form: PlantaSchema):
         return {"message": error_msg}, 400
 
 
-# Buscar todas as plantas cadastradas
-
+# Rota para buscar todas as plantas cadastradas (GET)
 @app.get('/plantas', tags=[planta_tag],
          responses={"200": ListagemPlantasSchema, "404": ErrorSchema})
 def get_plantas():
@@ -81,8 +81,7 @@ def get_plantas():
         return apresenta_plantas(plantas), 200
 
 
-# Buscar uma planta pelo id passado.
-
+# Rota para buscar uma planta pelo id (GET)
 @app.get('/planta', tags=[planta_tag],
          responses={"200": PlantaViewSchema, "404": ErrorSchema})
 def get_planta(query: PlantaBuscaSchema):
@@ -102,8 +101,7 @@ def get_planta(query: PlantaBuscaSchema):
         # retorna a representação de planta
         return apresenta_planta(planta), 200
 
-# Apagar uma planta pelo id passado.
-
+# Rota para apagar uma planta pelo id (DELETE).
 @app.delete('/planta', tags=[planta_tag],
             responses={"200": PlantaDelSchema, "404": ErrorSchema})
 def del_planta(query: PlantaBuscaSchema):
