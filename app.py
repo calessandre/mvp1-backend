@@ -14,7 +14,7 @@ CORS(app)
 
 # Definindo tags
 home_tag = Tag(name="Documentação", description="Documentação da API.")
-planta_tag = Tag(name="API", description="Adição, visualização, remoção e listagem de plantas.")
+planta_tag = Tag(name="API", description="Adição, visualização e remoção de plantas.")
 
 # Implementando as rotas
 
@@ -80,26 +80,6 @@ def get_plantas():
         print(plantas)
         return apresenta_plantas(plantas), 200
 
-
-# Rota para buscar uma planta pelo id (GET)
-@app.get('/planta', tags=[planta_tag],
-         responses={"200": PlantaViewSchema, "404": ErrorSchema})
-def get_planta(query: PlantaBuscaSchema):
-    """Faz a busca por um planta a partir do id da planta e retorna uma representação das plantas.
-    """
-    planta_id = query.planta_id
-    # criando conexão com a base
-    session = Session()
-    # fazendo a busca
-    planta = session.query(Planta).filter(Planta.id == planta_id).first()
-
-    if not planta:
-        # se a planta não foi encontrada
-        error_msg = "Planta não encontrada na base."
-        return {"message": error_msg}, 404
-    else:
-        # retorna a representação de planta
-        return apresenta_planta(planta), 200
 
 # Rota para apagar uma planta pelo id (DELETE).
 @app.delete('/planta', tags=[planta_tag],
